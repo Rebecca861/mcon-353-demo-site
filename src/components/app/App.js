@@ -15,8 +15,8 @@ function App() {
 
   return (
     <div>
-       <Home />
-       {/* <Todo /> */}
+       {/* <Home /> */}
+       <Todo />
     </div>
   );
 }

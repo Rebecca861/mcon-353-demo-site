@@ -1,0 +1,30 @@
+body {
+  padding: 50px;
+  font-family: sans-serif;
+  justify-content: center;
+}
+
+.grid {
+  justify-content: center;
+  /*justify-self: center;*/
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  text-align: center;
+  margin: auto;
+}
+
+button {
+  text-align: center;
+  margin: auto;
+}
+
+#inputDiv {
+  margin: auto;
+  text-align: center;
+}
