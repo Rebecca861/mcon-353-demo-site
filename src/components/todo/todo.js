@@ -13,6 +13,7 @@ export const Todo = () => {
     function addTodo(){
         const newTodos = [...todos, {text: inputText, isChecked: false}];
         setTodos(newTodos);
+        setInputText(" ");
     }
 
     function deleteTodo(deletedTodo){
