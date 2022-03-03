@@ -80,7 +80,7 @@ function Home() {
 
     <Button variant="outlined" href="https://www.kosher.com/">Click here for a helpful website with lots of great recipes!</Button>
     <br />
-    <Typography component="legend">Rate out website!</Typography>
+    <Typography component="legend">Rate our website!</Typography>
     <Rating name="half-rating" defaultValue={5} precision={0.5} />
 
     </div>
