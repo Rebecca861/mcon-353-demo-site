@@ -1,5 +1,6 @@
 import {} from "react-router-dom";
 import { Todo } from "./todo"
+import { TodoProvider } from "../../state/todo/context";
 import {render, screen} from "@testing-library/react"
 
 describe("Todo component", () => {
