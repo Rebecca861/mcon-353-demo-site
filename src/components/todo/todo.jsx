@@ -5,18 +5,17 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import ClearIcon from "@mui/icons-material/Clear";
-import { todoContext } from "../app/App";
+import { TodoContext } from "../../state/todo/context";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export const Todo = () => {
   const [inputText, setInputText] = useState("");
-  const { todos, setTodos } = useContext(todoContext);
+  const { todos, setTodos } = useContext(TodoContext);
 
   function addTodo() {
-    const newTodos = [...todos, { text: inputText, isChecked: false }];
-    setTodos(newTodos);
+    setTodos([...todos, { text: inputText, isChecked: false }]);
     setInputText("");
   }
 
@@ -24,41 +23,18 @@ export const Todo = () => {
     setTodos(todos.filter((todo) => todo.text !== deletedTodo));
   }
 
-  function checkOffTodo(setChecked) {
-    setTodos(
-      todos.forEach((todo) => {
-        if (todo.text === setChecked) {
-          todo.isChecked = true;
-        }
-      })
-    );
-    /*console.log(setChecked);
-        todos.forEach(todo => {
-            if (todo.text === setChecked) {
-                console.log("found it!");
-                todo = {text: setChecked, isChecked: true};
-                console.log("changed " + todo.text + " to setChecked " + todo.isChecked);
-                return;
-            }
-        });*/
-  }
 
-  function getIsChecked(todoText) {
-    todos.forEach((todo) => {
-      if (todo.text === todoText) {
-        return todo.isChecked;
+
+  function handleChange(todoToCheck) {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.text === todoToCheck) {
+        todo.isChecked = !todo.isChecked;
       }
-    });
-  }
+      return todo;
+    })
 
-  //   function uncheckTodo(setUnchecked) {
-  //       todos.forEach(todo => {
-  //           if (todo.text === setUnchecked) {
-  //               todo.isChecked = false;
-  //               return;
-  //           }
-  //       });
-  //   }
+    setTodos(updatedTodos);
+  }
 
   return (
     <div id="inputDiv">
@@ -67,6 +43,7 @@ export const Todo = () => {
       <TextField
         id="outlined-basic"
         label="I need to..."
+        //placeholder="Add Task"
         variant="outlined"
         onChange={(event) => setInputText(event.target.value)}
       />
@@ -77,32 +54,32 @@ export const Todo = () => {
       </Button>
 
       {todos.map((todo) => (
-        <ToDoItem
-          getIsChecked={getIsChecked}
+        <TodoItem
           text={todo.text}
-          isChecked={() => getIsChecked(todo.text)}
+          isChecked={todo.isChecked}
+          handleChange={handleChange}
           deleteTodo={deleteTodo}
-          checkOffTodo={checkOffTodo}
         />
       ))}
     </div>
   );
 };
 
-const ToDoItem = (props) => {
+const TodoItem = (props) => {
   const label = { inputProps: { "aria-label": "" } };
-  const isChecked = props.getIsChecked(props.text);
 
+
+  
   return (
     <Grid container spacing={0} className="grid">
       <Grid item xs={0}>
         <Checkbox
           {...label}
+          checked={props.isChecked}
           color="secondary"
           name="text"
           value=""
-          onChange={() => props.checkOffTodo(props.text)}
-          checked={isChecked}
+          onChange={() => props.handleChange(props.text)}
         />
       </Grid>
       <Grid item xs={1}>

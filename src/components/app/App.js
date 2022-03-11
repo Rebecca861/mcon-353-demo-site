@@ -15,6 +15,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import {TodoProvider} from "../../state/todo/context"
 
 
 //const todoList = {};
@@ -33,19 +34,20 @@ import {
 };*/
 
 
-export const todoContext = React.createContext();
+
+
+
 
 function App() {
   
-  const [todos, setTodos] = useState([]);
-
+  
   
 
   
 
   return (
     <div>
-      <todoContext.Provider value={{todos, setTodos}}>
+      <TodoProvider>
       <BrowserRouter>
       <Header />
         <Routes>
@@ -53,7 +55,7 @@ function App() {
           <Route path = "/todo" element={<Todo />}></Route>
         </Routes>
       </BrowserRouter>
-      </todoContext.Provider>
+      </TodoProvider>
 
     </div>
   );
