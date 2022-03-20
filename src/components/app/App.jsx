@@ -10,6 +10,7 @@ import Rating from '@mui/material/Rating'
 import Home from '../home/home'
 import {Todo} from '../todo/todo'
 import {Header} from '../header/header'
+import {Chat} from '../chat/chat'
 import {
   BrowserRouter,
   Routes,
@@ -53,6 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>  
           <Route path = "/todo" element={<Todo />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
       </BrowserRouter>
       </TodoProvider>
