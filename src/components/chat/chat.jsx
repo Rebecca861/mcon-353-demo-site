@@ -1,39 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled as styled1 } from "@mui/material/styles";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import CustomSelect from "@mui/material/Select";
-import PropTypes from "prop-types";
-import SelectUnstyled, {
-  selectUnstyledClasses,
-} from "@mui/base/SelectUnstyled";
-import OptionUnstyled, {
-  optionUnstyledClasses,
-} from "@mui/base/OptionUnstyled";
-import PopperUnstyled from "@mui/base/PopperUnstyled";
-import { styled as styled2 } from "@mui/system";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AddSharpIcon from "@mui/icons-material/AddSharp";
 export const Chat = () => {
-  const [chats, setChats] = useState([
-    // { chatId: "18fa1c30-c741-4fa2-9b02-190f3dfcfccc", name: "Chat 1" },
-    // { chatId: "18fa1c30-c741-4fa2-9b02-190f3dfcfccc", name: "Chat 2" },
-  ]);
+  const [chats, setChats] = useState([]);
 
-  const [chat, setChat] = useState({
-    // id: "18fa1c30-c741-4fa2-9b02-190f3dfcfccc",
-    // name: "demoSiteChat",
-  });
+  const [chat, setChat] = useState({});
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -44,8 +23,6 @@ export const Chat = () => {
 
   const handleChange = (event, newAlignment) => {
     setChat(event.target.value);
-    console.log("val: " + event.target.value);
-    //setChatMessages([]);
   };
 
   function getChats() {
@@ -77,8 +54,6 @@ export const Chat = () => {
     })
       .then((response) => response.json()) // pull the json out of the response
       .then((data) => console.log(data));
-
-    //setChatMessages([...chatMessages, { text: message }]);
   }
 
   function addChat() {
@@ -134,91 +109,78 @@ export const Chat = () => {
     chat.id
   );
 
-  // useInterval((params) => {
-  //   fetch(`https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/chats`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setChats(data.Items);
-  //     });
-  // }, 1000);
-
-  // function getChatMessages() {
-  //   fetch(
-  //     "https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/chats/18fa1c30-c741-4fa2-9b02-190f3dfcfccc/messages"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => setChatMessages(data.Items));
-  //   console.log("chats: " + chatMessages);
-  // }
-
   return (
-    <div id="chatDiv">
+    <div>
       <h1>Chat!</h1>
+      <div
+        id="chatDiv"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          //alignItems: "center",
+          //height: "100vh",
+        }}
+      >
+        <FormControl sx={{ minWidth: 120 }}>
+          <div>
+            <InputLabel id="demo-select-label">Select a chat...</InputLabel>
+            <Select
+              labelId="demo-select-label"
+              id="demo-select"
+              onChange={handleChange}
+              onOpen={getChats}
+              label="Select a chat..."
+              style={{ minWidth: 250 }}
+            >
+              {chats.map((chat) => (
+                <MenuItem key={chat.chatId} value={chat}>
+                  {chat.name}
+                </MenuItem>
+              ))}
+            </Select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              id="outlined-basic"
+              label="Create new chat..."
+              multiline
+              variant="outlined"
+              onChange={(event) => setNewChatName(event.target.value)}
+            />
+            &nbsp;&nbsp;
+            <Button variant="contained" onClick={addChat} size="large">
+              <AddSharpIcon />
+            </Button>
+          </div>
 
-      <FormControl sx={{ minWidth: 120 }}>
-        <div>
-          <InputLabel id="demo-select-label">Select a chat...</InputLabel>
-          <Select
-            labelId="demo-select-label"
-            id="demo-select"
-            //value={chat}
-            onChange={handleChange}
-            onOpen={getChats}
-            label="Select a chat..."
-            style={{ minWidth: 250 }}
-            //MenuProps={MenuProps}
-          >
-            {chats.map((chat) => (
-              <MenuItem
-                key={chat.chatId}
-                value={chat}
-                //style={getStyles(name, personName, theme)}
-              >
-                {chat.name}
-              </MenuItem>
-            ))}
-          </Select>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          {/* <br />
-        <br /> */}
+          <br />
+
           <TextField
             id="outlined-basic"
-            label="Create new chat..."
+            label="Enter your username here..."
             multiline
             variant="outlined"
-            onChange={(event) => setNewChatName(event.target.value)}
+            onChange={(event) => setUserName(event.target.value)}
           />
-          &nbsp;&nbsp;
-          <Button variant="contained" onClick={addChat} size="large">
-            <AddSharpIcon />
+
+          <br />
+          <TextField
+            id="outlined-basic"
+            label="Enter your message here..."
+            multiline
+            variant="outlined"
+            onChange={(event) => setMessage(event.target.value)}
+          />
+
+          <br />
+          <br />
+          <Button variant="contained" onClick={addChatMessage} size="large">
+            Post
           </Button>
-        </div>
+        </FormControl>
+      </div>
 
-        <br />
-
-        <TextField
-          id="outlined-basic"
-          label="Enter your username here..."
-          multiline
-          variant="outlined"
-          onChange={(event) => setUserName(event.target.value)}
-        />
-
-        <br />
-        <TextField
-          id="outlined-basic"
-          label="Enter your message here..."
-          multiline
-          variant="outlined"
-          onChange={(event) => setMessage(event.target.value)}
-        />
-
-        <br />
-        <br />
-        <Button variant="contained" onClick={addChatMessage} size="large">
-          Post
-        </Button>
-      </FormControl>
+      <br />
 
       {chatMessages.map((chatMessage) => (
         <ChatMessageItem
