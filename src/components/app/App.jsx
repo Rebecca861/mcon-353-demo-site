@@ -14,21 +14,6 @@ import { Chat } from "../chat/chat";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { TodoProvider } from "../../state/todo/context";
 
-//const todoList = {};
-
-/*const reducer = (state, action) => {
-  switch (action) {
-    case "add":
-      return setTodos([...todoList, {text: inputText, isChecked: false}]);
-    case "delete":
-      return setTodos(todoList.filter(todo => todo.text !== deletedTodo));
-    case "setChecked":
-      return checkedTodo.isChecked = !checkedTodo.isChecked;
-    default:
-      return state;
-  }
-};*/
-
 function App() {
   return (
     <div>

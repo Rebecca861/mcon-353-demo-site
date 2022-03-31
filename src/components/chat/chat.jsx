@@ -95,7 +95,7 @@ export const Chat = () => {
 
   useInterval(
     (params) => {
-      const chatId = chat.id; //params[0];
+      const chatId = chat.id;
       fetch(
         `https://z36h06gqg7.execute-api.us-east-1.amazonaws.com/chats/${chatId}/messages`
       )
@@ -117,8 +117,6 @@ export const Chat = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          //alignItems: "center",
-          //height: "100vh",
         }}
       >
         <FormControl sx={{ minWidth: 120 }}>

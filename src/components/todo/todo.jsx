@@ -1,13 +1,10 @@
 import React, { useContext, useState } from "react";
 import "./todo.css";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import ClearIcon from "@mui/icons-material/Clear";
 import { TodoContext } from "../../state/todo/context";
 import Checkbox from "@mui/material/Checkbox";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export const Todo = () => {
@@ -23,15 +20,13 @@ export const Todo = () => {
     setTodos(todos.filter((todo) => todo.text !== deletedTodo));
   }
 
-
-
   function handleChange(todoToCheck) {
     const updatedTodos = todos.map((todo) => {
       if (todo.text === todoToCheck) {
         todo.isChecked = !todo.isChecked;
       }
       return todo;
-    })
+    });
 
     setTodos(updatedTodos);
   }
@@ -43,7 +38,6 @@ export const Todo = () => {
       <TextField
         id="outlined-basic"
         label="I need to..."
-        //placeholder="Add Task"
         variant="outlined"
         onChange={(event) => setInputText(event.target.value)}
       />
@@ -68,8 +62,6 @@ export const Todo = () => {
 const TodoItem = (props) => {
   const label = { inputProps: { "aria-label": "" } };
 
-
-  
   return (
     <Grid container spacing={0} className="grid">
       <Grid item xs={0}>
@@ -94,5 +86,3 @@ const TodoItem = (props) => {
     </Grid>
   );
 };
-
-//export default Todo;
